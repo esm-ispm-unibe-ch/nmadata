@@ -1,0 +1,31 @@
+id;study;r1;n1;t1;r2;n2;t2;rob
+1;IFNB MS Group;105;123;Placebo;190;249;Interferon beta Placebob;2
+2;MSCRG;120;143;Placebo;126;158;Interferon beta Placeboa (Avonex);2
+3;PRISM;159;187;Placebo;268;373;Interferon beta Placeboa (Rebif);2
+4;Bornstein;19;25;Placebo;11;25;Glatiramer acetate;3
+5;Johnson;97;126;Placebo;89;125;Glatiramer acetate;2
+6;Goodkin;24;29;Placebo;19;30;Azathioprine;1
+7;Millefiorini;19;24;Placebo;10;27;Mitoxantrone;2
+8;Achiron;20;20;Placebo;15;20;Immunoglobulins;2
+9;Fazekas;49;75;Placebo;35;75;Immunoglobulins;2
+10;AFFIRM;203;315;Placebo;225;627;Natalizumab;1
+11;INCOMIN;49;96;Interferon beta Placebob;63;92;Interferon beta Placeboa (Avonex);3
+12;Koch-Henriksen;130;158;Interferon beta Placebob;117;143;Interferon beta Placeboa (Rebif);3
+13;BEYOND;1023;1796;Interferon beta Placebob;258;448;Glatiramer acetate;3
+14;REGARD;168;386;Interferon beta Placeboa (Rebif);152;378;Glatiramer acetate;3
+15;FREEDOMS;273;418;Placebo;396;854;Fingolimod;2
+16;DEFINE;295;410;Placebo;507;827;Dimethyl fumarate;2
+17;CONFIRM;241;363;Placebo;204;360;Glatiramer acetate;3
+17;CONFIRM1;241;363;Placebo;437;707;Dimethyl fumarate;3
+17;CONFIRM2;204;360;Glatiramer acetate;437;707;Dimethyl fumarate;3
+18;TEMSO;220;363;Placebo;387;725;Teriflunomide;1
+19;CARE-MS I;94;195;Interferon beta Placeboa (Rebif);99;386;Alemtuzumab;3
+20;CARE-MS II;152;231;Interferon beta Placeboa (Rebif);170;436;Alemtuzumab;3
+21;CAMMS223;40;111;Interferon beta Placeboa (Rebif);26;223;Alemtuzumab;3
+22;ALLEGRO;395;556;Placebo;317;550;Laquinimod;1
+23;BECOME;24;36;Interferon beta Placebob;15;39;Glatiramer acetate;3
+24;MAIN TRIAL;38;77;Azathioprine;42;73;Interferone;3
+25;BRAVO1;223;450;Placebo;183;447;Interferon beta Placeboa (Avonex);3
+25;BRAVO2;223;450;Placebo;201;434;Laquinimod;3
+25;BRAVO3;183;447;Interferon beta Placeboa (Avonex);201;434;Laquinimod;3
+26;FREEDOMS II;204;355;Placebo;308;728;Fingolimod;1

@@ -1,0 +1,13 @@
+Package: nmadata
+Type: Package
+Title: Network meta-analysis datasets 
+Version: 1.0
+Date: 2017-12-18
+Author: Thodoris Papakonstantinou
+Maintainer: Thodoris Papakonstantinou <theodoros.papakonstantinou@ispm.unibe.ch>
+Description: Provides datasets for performing NMA -- THE DATASETS ARE FOR
+  TESTING PURPOSES ONLY -- their validity is not checked -- NOT TO BE INCLUDED IN
+  REVIEWS
+License: GPL-3
+Imports: 
+  dataformatter
