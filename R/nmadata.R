@@ -1,11 +1,18 @@
 
-listnmadata = function() {
+nmadatasummary = function() {
   library(nmadata)
   print("Here is the list of available datasets")
   #nmalist = read.csv("../data/catalog.csv",header=T
                      #, colClasses = c(rep("character",4),"numeric"))
   data(nmacatalog)
   nmalist = nmacatalog;
+  return (nmalist)
+}
+
+nmadatanames = function (){
+  library(nmadata)
+  data(nmacatalog)
+  nmalist = as.vector(nmacatalog$short_name);
   return (nmalist)
 }
 
@@ -26,6 +33,10 @@ readnma = function(filename,format="long") {
     }else{
       out = long2wide(dts,dtstype)
     }
+    dtsformat = format
   }
-  return (out)
+  return (list( name = filename
+              , data   = out
+              , type   = dtstype
+              , format = dtsformat))
 }
