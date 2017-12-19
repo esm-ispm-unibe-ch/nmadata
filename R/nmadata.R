@@ -18,7 +18,7 @@ readnma = function(filename,format="long") {
   dts = eval(parse(text=filename))
   dtsformat = nmacatalog[nmacatalog$short_name %in% filename,]$format 
   dtstype = nmacatalog[nmacatalog$short_name %in% filename,]$type
-  if( dtsformat == format){
+  if(dtsformat == format || dtsformat == "iv"){
     out = dts
   }else{
     if(format=="long"){
