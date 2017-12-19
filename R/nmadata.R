@@ -10,6 +10,8 @@ listnmadata = function() {
 }
 
 readnma = function(filename,format="long") {
+  require(dataformatter)
+  library(dataformatter)
   library(nmadata)
   data(nmacatalog)
   data(list=filename)
