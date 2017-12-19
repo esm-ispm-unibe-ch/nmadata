@@ -1,7 +1,7 @@
 short_name;type;format;description;nmadbref
 diabetes_indr;binary;wide;test diabetes with fake indirectness field;1
 big_wide;binary;wide;secret;2
-Cipriani_2011;binary;wide;cipriani mani;3
+cipriani_2011;binary;wide;cipriani mani;3
 Dong;binary;long;Dong;4
 hazlewood;binary;long;hazlewood with rob;5
 Leucht;continuous;wide;schizo;6
