@@ -40,3 +40,12 @@ readnma = function(filename,format="long") {
               , type   = dtstype
               , format = dtsformat))
 }
+
+#indata := output of readnma
+longType = function (indata) {
+  if(indata$format != "iv"){
+    paste("long_",indata$type,sep="")
+  }else{
+    "iv"
+  }
+}
