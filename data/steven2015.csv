@@ -1,0 +1,43 @@
+year,study,id,t1,t2,effect,se
+1979,Jarret ,1,placebo/standard care,Diet/Dietandplacebo,0.3687,0.54
+1999,Li,2,placebo/standard care,Metformin,0.72,0.71
+1999,Wein,3,placebo/standard care,Diet/Dietandplacebo,0.46,0.3
+2000,Heymsfiled,4,placebo/standard care,Orlistat,0.95,0.35
+2002,Chiassson,5,placebo/standard care,Acarbose,0.29,0.09
+2002,Liao,6,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.66,1.22
+2003,Pan,7,placebo/standard care,Acarbose,0.51,0.48
+2004,Torgerson ,8,DietandExercise/DietandExerciseandPlacebo,Diet and exercise and orlistat,0.73,0.31
+2005,Kosaka,9,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,1.24,0.6
+2006,Eriksson,12,placebo/standard care,Glipizide,1.74,1.1
+2006,Ramachandran,13,placebo/standard care,Metformin,0.429,0.2388
+2006,Ramachandran,13,placebo/standard care,Acarbose,0.473,0.2514
+2006,Ramachandran,13,placebo/standard care,Diet and exercise and metformin,0.463,0.2513
+2006,Ramachandran,13,Metformin,Acarbose,0.04,0.25
+2006,Ramachandran,13,Metformin,Diet and exercise and metformin,0.03,0.25
+2006,Ramachandran,13,Acarbose,Diet and exercise and metformin,-0.01,0.25
+2008,Li,14,placebo/standard care,Diet/Dietandplacebo,0.545,0.217
+2008,Roumen,15,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.8675,0.427
+2009.8,"Diabetes Prevention Programme 
+Research Group",16,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.3864,0.0662
+2009.8,"Diabetes Prevention Programme 
+Research Group",16,placebo/standard care,Metformin,0.1978,0.0655
+2009.8,"Diabetes Prevention Programme 
+Research Group",16,DietandExercise/DietandExerciseandPlacebo,Metformin,-0.19,0.07
+2009.4,Kawamori,17,DietandExercise/DietandExerciseandPlacebo,Diet and exercise and voglibose,0.5192,0.1623
+2009,Lindhal,18,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.2126,0.3162
+2009.5,Penn,19,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.7985,0.4571
+2009.3,Ramachandran,20,Acarbose,Diet and exercise and pioglitazone,0.0161,0.1949
+2010,Lindblad,21,DietandExercise/DietandExerciseandPlacebo,Diet and exercise and glimipiride,0.3524,0.2041
+2010,Zinman,24,DietandExercise/DietandExerciseandPlacebo,Diet and exercise and metformin andpioglitazone,1.1712,0.31
+2011,DeFronzo,25,Diet/Dietandplacebo,Diet and exercise and pioglitazone,1.2729,0.2856
+2011,Sakane,26,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.6649,0.3849
+2011,Saito,27,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.3416,0.2157
+2011,Yates,28,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.1443,0.6325
+2011,Yates,28,placebo/standard care,Diet and exercise and pedometer,0.8889,0.7071
+2011,Yates,28,DietandExercise/DietandExerciseandPlacebo,Diet and exercise and pedometer,0.75,0.67
+2013,Lindstrom,29,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.4847,0.128
+2013,Xu,30,placebo/standard care,DietandExercise/DietandExerciseandPlacebo,0.126,0.5547
+2006,Dream Trial Investigators,10,placebo/standard care,Ramipril,0.0943,0.0645
+2006,Dream Trial Investigators b,11,placebo/standard care,Rosiglitazone,0.9676,0.0734
+2010,NAVIGATOR Study Group,22,DietandExercise/DietandExerciseandPlacebo,Diet and exercise and valsartan,0.1508,0.0344
+2010,NAVIGATOR Study Group b,23,DietandExercise/DietandExerciseandPlacebo,Diet and exercise and nateglinide,-0.0676,0.0367
