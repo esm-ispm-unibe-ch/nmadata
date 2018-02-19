@@ -10,4 +10,5 @@ Description: Provides datasets for performing NMA -- THE DATASETS ARE FOR
   REVIEWS
 License: GPL-3
 Imports: 
-  dataformatter
+   dataformatter
+ , readxl
