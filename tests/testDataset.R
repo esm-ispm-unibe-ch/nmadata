@@ -39,7 +39,7 @@ hatmatrix = function(dataset,model="random"){
 testData = function(refid) {
   checked = length(checkedStudies()$"Ref.ID")
   unchecked = length(uncheckedStudies()$"Ref.ID")
-  pers = (checked / unchecked) *100
+  pers = (checked / (checked + unchecked)) *100
   print(c(pers,"% are verified"))
   print("checking")
   print(refid)
