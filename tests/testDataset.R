@@ -6,6 +6,8 @@ rm(list=ls())
 library(devtools)
 library(netmeta)
 install_github("esm-ispm-unibe-ch/flow_contribution")
+#install.packages("./contribution_0.1.0.tar.gz",repos=NULL)
+
 library(contribution)
 source("R/nmadata.R");
 
@@ -30,7 +32,7 @@ hatmatrix = function(dataset,model="random"){
   }else{
     sm = "SMD"
   }
-  C = getHatMatrix (indata$data,type=longType(indata),model,sm,tau="NA")
+  C = getHatMatrix(indata$data,type=longType(indata),model,sm,tau="NA")
   return(C)
 }
 
