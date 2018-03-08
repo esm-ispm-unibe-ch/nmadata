@@ -1,5 +1,5 @@
 
-catalogpath = "https://raw.githubusercontent.com/esm-ispm-unibe-ch/nmadata/newcatalog/"
+catalogpath = "https://raw.githubusercontent.com/esm-ispm-unibe-ch/nmadata/master/"
 
 #should be run from the root directory every time changes are made in the
 #catalog.xlsx file
