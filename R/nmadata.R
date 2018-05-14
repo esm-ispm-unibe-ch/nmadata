@@ -124,13 +124,14 @@ readByID = function(refid,format="long",path) {
   require(dataformatter)
   library(dataformatter)
   library(readxl)
-  nmacatalog = getCatalog()
   if(missing(path)){
+    nmacatalog = getCatalog(F)
     file = paste(catalogpath,"nmadb/",refid,".xlsx",sep="")
     download.file(file,"tmpfile")
     dts = as.data.frame(
             read_xlsx("tmpfile"))
   }else{
+    nmacatalog = getCatalog()
     file = paste(path,refid,".xlsx",sep="")
     dts = as.data.frame(
             read_xlsx(file))
