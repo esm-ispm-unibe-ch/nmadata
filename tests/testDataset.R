@@ -3,12 +3,9 @@
 Sys.setenv(LANG = "en")
 rm(list=ls())
 
-library(devtools)
-library(netmeta)
-install_github("esm-ispm-unibe-ch/flow_contribution")
-#install.packages("./contribution_0.1.0.tar.gz",repos=NULL)
+#install_github("esm-ispm-unibe-ch/flow_contribution")
+install.packages("../contribution_0.2.0.tar.gz",repos=NULL)
 
-library(contribution)
 source("R/nmadata.R");
 
 makeCatalog("nmadb/catalog.xlsx")
@@ -24,8 +21,9 @@ print("unverified")
 todos = nmadatanames(unverifiedStudies())
 print(todos)
 
-hatmatrix = function(dataset,model="random"){
-  indata = readByID(dataset,format="long",path="nmadb/")
+hatmatrixLocally = function(dataset,model="random"){
+library(contribution)
+  indata = readByID(dataset,format="long",path="./nmadb/")
   type = indata$type
   if(type == "binary"){
     sm = "OR"
@@ -39,12 +37,12 @@ hatmatrix = function(dataset,model="random"){
 testData = function(refid) {
   checked = length(checkedStudies()$"Ref.ID")
   unchecked = length(uncheckedStudies()$"Ref.ID")
-  pers = (checked / (checked + unchecked)) *100
+  pers = (checked / (checked + unchecked)) * 100
   print(c(pers,"% are verified"))
   print("checking")
   print(refid)
   tryCatch({
-      HM = hatmatrix(refid)
+      HM = hatmatrixLocally(refid)
       if (! is.null(HM$H)){
         print("you can mark it as verified in catalog.xlsx")
         out = TRUE

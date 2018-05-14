@@ -1,4 +1,7 @@
 
+require(devtools)
+require(netmeta)
+
 catalogpath = "https://raw.githubusercontent.com/esm-ispm-unibe-ch/nmadata/master/"
 
 #should be run from the root directory every time changes are made in the
@@ -33,7 +36,17 @@ nmadatanames = function (studies){
   return (nmalist)
 }
 
+listVerified = function () {
+  nmadatanames(verifiedStudies())
+}
+
 verifiedStudies = function (){
+  nmacatalog = getCatalog(F)
+  nmalist = nmacatalog[nmacatalog$verified==TRUE,]
+  return (nmalist)
+}
+
+localVerifiedStudies = function (){
   nmacatalog = getCatalog()
   nmalist = nmacatalog[nmacatalog$verified==TRUE,]
   return (nmalist)
@@ -57,9 +70,35 @@ uncheckedStudies = function (){
   return (nmalist)
 }
 
+readnmalocally = function(filename,format="long") {
+  require(dataformatter)
+  library(dataformatter)
+  nmacatalog = getCatalog()
+  data(nmacatalog)
+  data(list=filename)
+  dts = eval(parse(text=filename))
+  dtsformat = nmacatalog[nmacatalog$label %in% filename,]$format 
+  dtstype = nmacatalog[nmacatalog$short_name %in% filename,]$type
+  if(dtsformat == format || dtsformat == "iv"){
+    out = dts
+  }else{
+    if(format=="long"){
+      out = wide2long(dts,dtstype)
+    }else{
+      out = long2wide(dts,dtstype)
+    }
+    dtsformat = format
+  }
+  return (list( name = filename
+              , data   = out
+              , type   = dtstype
+              , format = dtsformat))
+}
+
 readnma = function(filename,format="long") {
   require(dataformatter)
   library(dataformatter)
+  nmacatalog = getCatalog(F)
   data(nmacatalog)
   data(list=filename)
   dts = eval(parse(text=filename))
