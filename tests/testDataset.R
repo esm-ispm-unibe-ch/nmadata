@@ -2,9 +2,10 @@
 # Should be run in the root folder of the package
 Sys.setenv(LANG = "en")
 rm(list=ls())
+library(devtools)
 
-#install_github("esm-ispm-unibe-ch/flow_contribution")
-install.packages("../contribution_0.2.0.tar.gz",repos=NULL)
+install_github("esm-ispm-unibe-ch/flow_contribution")
+#install.packages("../contribution_0.2.0.tar.gz",repos=NULL)
 
 source("R/nmadata.R");
 

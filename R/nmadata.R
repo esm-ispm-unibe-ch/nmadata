@@ -10,9 +10,9 @@ makeCatalog = function(path) {
   library(readxl)
   if (missing(path)){
     cfp = paste(catalogpath,"nmadb/catalog.xlsx",sep="")
-    download.file(csf,"tmpfile")
+    download.file(csf,"nmadb/.catalog")
     catalog = as.data.frame(
-            read_xlsx("tmpfile",skip=1))
+            read_xlsx("nmadb/.catalog",skip=1))
   }else{
     catalog = as.data.frame(
             read_xlsx(path,skip=1))
@@ -120,6 +120,7 @@ readnma = function(filename,format="long") {
               , format = dtsformat))
 }
 
+#refid, format you like the dataset to be: long, wide
 readByID = function(refid,format="long",path) {
   require(dataformatter)
   library(dataformatter)
@@ -127,9 +128,9 @@ readByID = function(refid,format="long",path) {
   if(missing(path)){
     nmacatalog = getCatalog(F)
     file = paste(catalogpath,"nmadb/",refid,".xlsx",sep="")
-    download.file(file,"tmpfile")
+    download.file(file,"nmadb/.catalog")
     dts = as.data.frame(
-            read_xlsx("tmpfile"))
+            read_xlsx("nmadb/.catalog"))
   }else{
     nmacatalog = getCatalog()
     file = paste(path,refid,".xlsx",sep="")
@@ -148,7 +149,7 @@ readByID = function(refid,format="long",path) {
     }
     dtsformat = format
   }
-  return (list( name = refid
+  return (list( name   = refid
               , data   = out
               , type   = tolower(dtstype)
               , format = dtsformat))
