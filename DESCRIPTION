@@ -11,4 +11,6 @@ Description: Provides datasets for performing NMA -- THE DATASETS ARE FOR
 License: GPL-3
 Imports: 
    dataformatter
+ , devtools
  , readxl
+ , plyr

@@ -1,8 +1,12 @@
 
 require(devtools)
 require(netmeta)
+require(plyr)
 
 catalogpath = "https://raw.githubusercontent.com/esm-ispm-unibe-ch/nmadata/master/"
+
+install_github("esm-ispm-unibe-ch/dataformatter")
+require(dataformatter)
 
 #should be run from the root directory every time changes are made in the
 #catalog.xlsx file
@@ -32,7 +36,10 @@ getCatalog = function (locally=TRUE) {
 }
 
 nmadatanames = function (studies){
-  nmalist = as.vector(paste(studies$Ref.ID,studies$First.Author,studies$Year,sep="_"));
+  nmalist = as.vector(paste(studies$Ref.ID
+                           , studies$First.Author
+                           , studies$Year
+                           , sep="_"));
   return (nmalist)
 }
 
@@ -145,6 +152,7 @@ readByID = function(refid,format="long",path) {
     if(format=="long"){
       out = wide2long(dts,dtstype)
     }else{
+      print(dtstype)
       out = long2wide(dts,dtstype)
     }
     dtsformat = format
