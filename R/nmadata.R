@@ -1,39 +1,35 @@
+rm(list=ls())
+source("public.token")
+library(jsonlite)
+library(RCurl)
+
 
 require(devtools)
 require(netmeta)
-require(plyr)
-
-catalogpath = "https://raw.githubusercontent.com/esm-ispm-unibe-ch/nmadata/master/"
 
 install_github("esm-ispm-unibe-ch/dataformatter")
 require(dataformatter)
 
-#should be run from the root directory every time changes are made in the
-#catalog.xlsx file
-makeCatalog = function(path) {
-  library(readxl)
-  if (missing(path)){
-    cfp = paste(catalogpath,"nmadb/catalog.xlsx",sep="")
-    download.file(csf,"nmadb/.catalog")
-    catalog = as.data.frame(
-            read_xlsx("nmadb/.catalog",skip=1))
-  }else{
-    catalog = as.data.frame(
-            read_xlsx(path,skip=1))
-  }
-  havedata = catalog[catalog$"Outcome Data?"=="YES",]
-  write.csv2(havedata,"data/nmacatalog.csv")
-  return (havedata)
-}
+getCatalog = function () {
+  response <- postForm(
+      uri=NMADBURL,
+      token=PUBLICTOKEN,
+      content='record',
+      format='csv',
+      type='flat',
+      rawOrLabel='label',
+      rawOrLabelHeaders='label',
+      exportSurveyFields='true',
+      exportCheckboxLabel='false',
+      exportDataAccessGroups='false',
+      returnFormat='json'
+  )
 
-getCatalog = function (locally=TRUE) {
-  if (locally){
-    catalog = read.csv2("data/nmacatalog.csv")
-  }else{
-    catalog = read.csv2(paste(catalogpath,"data/nmacatalog.csv",sep=""))
-  }
+  catalog = read.csv(text = response)
   return (catalog)
 }
+
+catalog = getCatalog()
 
 nmadatanames = function (studies){
   nmalist = as.vector(paste(studies$Ref.ID
@@ -43,109 +39,48 @@ nmadatanames = function (studies){
   return (nmalist)
 }
 
+verifiedStudies = function (){
+  nmalist = catalog[catalog$Verified=="True",]
+  return (nmalist)
+}
+
 listVerified = function () {
   nmadatanames(verifiedStudies())
 }
 
-verifiedStudies = function (){
-  nmacatalog = getCatalog(F)
-  nmalist = nmacatalog[nmacatalog$verified==TRUE,]
-  return (nmalist)
-}
-
-localVerifiedStudies = function (){
-  nmacatalog = getCatalog()
-  nmalist = nmacatalog[nmacatalog$verified==TRUE,]
-  return (nmalist)
-}
-
 unverifiedStudies = function (){
-  nmacatalog = getCatalog()
-  nmalist = nmacatalog[nmacatalog$verified==FALSE,]
+  nmalist = catalog[catalog$Verified==FALSE,]
   return (nmalist)
 }
 
-checkedStudies = function (){
-  nmacatalog = getCatalog()
-  nmalist = nmacatalog[nmacatalog$checked==TRUE,]
-  return (nmalist)
+
+exportData = function (recid, filename) {
+  print(recid)
+  writeBin(as.vector(
+              postForm(
+                uri=NMADBURL,
+                token=PUBLICTOKEN,
+                content='file',
+                action='export',
+                record=as.character(recid),
+                field='dataset',
+                event='',
+                returnFormat='json',
+                binary=TRUE
+              )
+          ), filename) 
 }
 
-uncheckedStudies = function (){
-  nmacatalog = getCatalog()
-  nmalist = nmacatalog[nmacatalog$checked==FALSE,]
-  return (nmalist)
-}
-
-readnmalocally = function(filename,format="long") {
+#refid, format you like the dataset to be: long, wide, iv
+readByID = function(refid,format="long") {
   require(dataformatter)
-  library(dataformatter)
-  nmacatalog = getCatalog()
-  data(nmacatalog)
-  data(list=filename)
-  dts = eval(parse(text=filename))
-  dtsformat = nmacatalog[nmacatalog$label %in% filename,]$format 
-  dtstype = nmacatalog[nmacatalog$short_name %in% filename,]$type
-  if(dtsformat == format || dtsformat == "iv"){
-    out = dts
-  }else{
-    if(format=="long"){
-      out = wide2long(dts,dtstype)
-    }else{
-      out = long2wide(dts,dtstype)
-    }
-    dtsformat = format
-  }
-  return (list( name = filename
-              , data   = out
-              , type   = dtstype
-              , format = dtsformat))
-}
-
-readnma = function(filename,format="long") {
-  require(dataformatter)
-  library(dataformatter)
-  nmacatalog = getCatalog(F)
-  data(nmacatalog)
-  data(list=filename)
-  dts = eval(parse(text=filename))
-  dtsformat = nmacatalog[nmacatalog$label %in% filename,]$format 
-  dtstype = nmacatalog[nmacatalog$short_name %in% filename,]$type
-  if(dtsformat == format || dtsformat == "iv"){
-    out = dts
-  }else{
-    if(format=="long"){
-      out = wide2long(dts,dtstype)
-    }else{
-      out = long2wide(dts,dtstype)
-    }
-    dtsformat = format
-  }
-  return (list( name = filename
-              , data   = out
-              , type   = dtstype
-              , format = dtsformat))
-}
-
-#refid, format you like the dataset to be: long, wide
-readByID = function(refid,format="long",path) {
-  require(dataformatter)
-  library(dataformatter)
   library(readxl)
-  if(missing(path)){
-    nmacatalog = getCatalog(F)
-    file = paste(catalogpath,"nmadb/",refid,".xlsx",sep="")
-    download.file(file,"nmadb/.catalog")
-    dts = as.data.frame(
-            read_xlsx("nmadb/.catalog"))
-  }else{
-    nmacatalog = getCatalog()
-    file = paste(path,refid,".xlsx",sep="")
-    dts = as.data.frame(
-            read_xlsx(file))
-  }
-  dtsformat = nmacatalog[nmacatalog$Ref.ID %in% refid,]$format 
-  dtstype = nmacatalog[nmacatalog$Ref.ID %in% refid,]$Type.of.outcome
+  fl = tempfile(fileext=".xlsx")
+  exportData(refid,fl)
+  dts = as.data.frame(
+          read_xlsx(fl))
+  dtsformat = catalog[catalog$Ref.ID %in% refid,]$Format 
+  dtstype = catalog[catalog$Ref.ID %in% refid,]$Type.of.Outcome
   if(dtsformat == format || dtsformat == "iv"){
     out = dts
   }else{
@@ -171,4 +106,5 @@ longType = function (indata) {
     "iv"
   }
 }
+
 

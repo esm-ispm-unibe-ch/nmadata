@@ -8,9 +8,7 @@ install_github("esm-ispm-unibe-ch/flow_contribution")
 #install.packages("../contribution_0.2.0.tar.gz",repos=NULL)
 
 source("R/nmadata.R");
-
-makeCatalog("nmadb/catalog.xlsx")
-catalog = getCatalog()
+source("admin.token")
 
 nmadatanames(catalog)
 
@@ -18,34 +16,31 @@ print("verified")
 dones = nmadatanames(verifiedStudies())
 print(dones)
 
-print("unverified")
-todos = nmadatanames(unverifiedStudies())
-print(todos)
+#print("unverified")
+#todos = nmadatanames(unverifiedStudies())
+#print(todos)
 
 hatmatrixLocally = function(dataset,model="random"){
 library(contribution)
-  indata = readByID(dataset,format="long",path="./nmadb/")
+  indata = readByID(dataset,format="long")
   type = indata$type
-  if(type == "binary"){
-    sm = "OR"
-  }else{
-    sm = "SMD"
-  }
+  sm = switch( type
+             , binary={"OR"}
+             , continuous={"SMD"}
+             , rate={"OR"}
+             , survival={"HR"}
+       )
   C = getHatMatrix(indata$data,type=longType(indata),model,sm,tau="NA")
   return(C)
 }
 
 testData = function(refid) {
-  checked = length(checkedStudies()$"Ref.ID")
-  unchecked = length(uncheckedStudies()$"Ref.ID")
-  pers = (checked / (checked + unchecked)) * 100
-  print(c(pers,"% are verified"))
   print("checking")
   print(refid)
   tryCatch({
       HM = hatmatrixLocally(refid)
       if (! is.null(HM$H)){
-        print("you can mark it as verified in catalog.xlsx")
+        print("Updated record as verified database")
         out = TRUE
       }else{
         out = FALSE
@@ -66,30 +61,14 @@ verifyVerified = function () {
   vers = as.vector(verifiedStudies()$"Ref.ID")
   tryCatch({
     res = Map(function(v) {
-                print(v)
                 return (testData(v))
                     },vers)
     print("SUCCESS")
   }
   , error = function(e) 
     {
-      stop("verified column is wrong in catalog.xlsx")
+      stop("Verified column is wrong database")
     }
   )
   print(res)
-}
-
-getVerified = function() {
-  alls = as.vector(getCatalog()$"Ref.ID")
-  #alls = head(as.vector(getCatalog()$"Ref.ID"),20)
-  res = Map(function(v) {
-        tryCatch({
-            return (testData(v)$passed)
-          }
-          , error = function(e){
-            return(FALSE)
-          }
-        )
-                  },alls)
-  return(res)
 }
