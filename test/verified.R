@@ -13,7 +13,7 @@ verifyVerified = function () {
   }
   , error = function(e) 
     {
-      stop("Verified column is wrong database")
+      stop(c("Verified column is wrong in database. Error:",e))
     }
   )
   print(res)

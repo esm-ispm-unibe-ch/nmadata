@@ -25,6 +25,7 @@ runnetmeta = function(recid,model="random"){
   data = switch (format
                 , long = {indata$data}
                 , wide = {makelong()}
+                , iv = {indata$data}
                 )
   print(data)
   C = getmetaNetw(data,type=longType(indata),model,sm,tau="NA")
