@@ -1,18 +1,22 @@
-rm(list=ls())
 source("admin.token")
-library(jsonlite)
 library(RCurl)
 
-response <- postForm(
+response = function () {
+  postForm(
     uri=NMADBURL,
-    token=TOKEN,
+    token=PUBLICTOKEN,
     format='csv',
     content='record'
-)
+  )
+}
 
-recs = read.csv(text = response)
+recs = function () {
+  return(read.csv(text = response()))
+}
 
-havedata = recs[recs$data_available==1,]
+havedata = function () {
+  return (recs()[recs()$data_available==1,])
+}
 
 filename = function (recid) { 
   out = paste("nmadb/",recid,".xlsx",sep="")
@@ -24,7 +28,7 @@ importreq = function (recid) {
     print(recid)
     postForm(
       uri=NMADBURL,
-      token=TOKEN,
+      token=ADMINTOKEN,
       content='file',
       action='import',
       record=as.character(recid),
@@ -38,6 +42,8 @@ importreq = function (recid) {
   }
 }
 
-mapply(importreq, havedata$ref_id)
+uploaddatasets = function () {
+  mapply(importreq, havedata()$record_id)
+  print(importreq)
+}
 
-print(importreq)

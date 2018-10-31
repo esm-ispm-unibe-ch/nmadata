@@ -5,12 +5,12 @@ Version: 1.0
 Date: 2017-12-18
 Author: Thodoris Papakonstantinou
 Maintainer: Thodoris Papakonstantinou <theodoros.papakonstantinou@ispm.unibe.ch>
-Description: Provides datasets for performing NMA -- THE DATASETS ARE FOR
-  TESTING PURPOSES ONLY -- their validity is not checked -- NOT TO BE INCLUDED IN
-  REVIEWS
+Description: Package for quering ISPM's database of Network meta-analyses.
+  The validity of the database is not guaranteed -- NOT INTENDED FOR REVIEWS
 License: GPL-3
+LazyLoad: Yes
+Depends: R (>= 3.5.1)
 Imports: 
-   dataformatter
- , devtools
- , readxl
- , plyr
+   devtools
+   , RCurl
+   , readxl
