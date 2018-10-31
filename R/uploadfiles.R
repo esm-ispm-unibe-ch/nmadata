@@ -1,4 +1,3 @@
-source("admin.token")
 library(RCurl)
 
 response = function () {

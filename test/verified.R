@@ -1,4 +1,8 @@
 
+library(devtools)
+install_github("esm-ispm-unibe-ch/nmadata",ref="redcap")
+library(nmadata)
+
 verifyVerified = function () {
   vers = as.vector(verifiedStudies()$"Record.ID")
   tryCatch({
