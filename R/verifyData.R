@@ -40,3 +40,19 @@ updateVerifiedStatus = function (recid, isVerified=0) {
       returnFormat='json'
     )
 }
+
+checkRecords = function (records, updateDB=F) {
+  rcs = as.vector(records$"Record.ID")
+  tryCatch({
+    res = Map(function(v) {
+             verifyData(v, updateDB)
+             },rcs)
+    print("SUCCESS")
+  }
+  , error = function(e) 
+    {
+      print(c("Error in:",e))
+    }
+  )
+  print(res)
+}
