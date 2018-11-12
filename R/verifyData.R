@@ -1,11 +1,11 @@
 
-verifyData = function(recid, updateRecord=T) {
+verifyData = function(recid, updateRecord=F) {
   print("checking")
   print(recid)
   tryCatch({
       metanet = runnetmeta(recid)
       if (! is.null(metanet)){
-        if (updateRecord) {
+        if (updateRecord == T) {
           source("admin.token")
           updateVerifiedStatus(recid, 1)
           print("Updated record as verified database")
@@ -13,12 +13,16 @@ verifyData = function(recid, updateRecord=T) {
         out = TRUE
       }else{
         out = FALSE
-        stop("not passed")
       }
     },
     error = function(e) 
     {
       print(e$message) # or whatever error handling code you want
+      if (updateRecord == T) {
+        source("admin.token")
+        updateVerifiedStatus(recid, 0, e$message)
+        print("Updated record as not verified in database")
+      }
       out = FALSE
       #stop("not passed")
     }
@@ -26,9 +30,13 @@ verifyData = function(recid, updateRecord=T) {
   return(list(recid=recid,passed=out))
 }
 
-updateVerifiedStatus = function (recid, isVerified=0) {
+updateVerifiedStatus = function (recid, isVerified=0, err='') {
   library(jsonlite)
-  datain = toJSON(data.frame(record_id = recid, verified = isVerified))
+  if( isVerified == 1){
+    datain = toJSON(data.frame(record_id = recid, verified = isVerified, error = ''))
+  }else{
+    datain = toJSON(data.frame(record_id = recid, verified = isVerified, error = err))
+  }
     postForm(
       uri=NMADBURL,
       token=ADMINTOKEN,
@@ -43,16 +51,11 @@ updateVerifiedStatus = function (recid, isVerified=0) {
 
 checkRecords = function (records, updateDB=F) {
   rcs = as.vector(records$"Record.ID")
-  tryCatch({
-    res = Map(function(v) {
-             verifyData(v, updateDB)
-             },rcs)
-    print("SUCCESS")
-  }
-  , error = function(e) 
-    {
-      print(c("Error in:",e))
-    }
-  )
-  print(res)
+  res = Map(function(v) {
+          tryCatch({
+            verifyData(v, updateDB)
+          },error = function (e){
+            print(e$message)
+          })
+        },rcs)
 }
