@@ -9,7 +9,7 @@ Description: Package for quering ISPM's database of Network meta-analyses.
   The validity of the database is not guaranteed -- NOT INTENDED FOR REVIEWS
 License: GPL-3
 LazyLoad: Yes
-Depends: R (>= 3.5.1)
+Depends: R (>= 3.3.1)
 Imports: 
    devtools
    , RCurl
