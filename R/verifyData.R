@@ -8,7 +8,7 @@ verifyData = function(recid, updateRecord=F) {
         if (updateRecord == T) {
           source("admin.token")
           updateVerifiedStatus(recid, 1)
-          print("Updated record as verified database")
+          print("Updated record as verified in database")
         }
         out = TRUE
       }else{

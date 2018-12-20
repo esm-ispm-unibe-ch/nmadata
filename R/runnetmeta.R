@@ -44,16 +44,16 @@ getmetaNetw = function(indata,type,model="fixed",tau=NA, sm){
   
   if (type=="long_binary"){
     Dpairs=pairwise(treat=t,event=r,n=n, data=D, studlab = id, sm= sm, allstudies = TRUE)
-    metaNetw<-netmeta(TE,seTE,treat1,treat2,studlab,data=Dpairs,sm=sm,comb.fixed =F,comb.random = T)
+    metaNetw<-netmeta(TE,seTE,treat1,treat2,studlab,data=Dpairs,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE)
   } 
   
   if (type=="long_continuous"){
     Dpairs=pairwise(treat=t,mean=y,sd=sd,n=n,data=D, studlab =id, sm=sm)
-    metaNetw<-netmeta(TE,seTE,treat1,treat2,studlab,data=Dpairs,sm=sm,comb.fixed =F,comb.random = T, tol.multiarm=0.05)
+    metaNetw<-netmeta(TE,seTE,treat1,treat2,studlab,data=Dpairs,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE, tol.multiarm=0.05)
   }
   
   if (type=="iv"){
-    metaNetw=netmeta(effect,se,t1,t2,id,data=D,sm=sm,comb.fixed =F,comb.random = T, tol.multiarm=0.05)
+    metaNetw=netmeta(TE=effect,seTE=se,treat1=t1,treat2=t2,studlab=id,data=D,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE, tol.multiarm=0.05)
   }
 
   return(metaNetw)
