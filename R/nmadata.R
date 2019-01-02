@@ -43,7 +43,7 @@ unverifiedStudies = function (){
 }
 
 exportData = function (recid, filename) {
-  print(paste(c("geting dataset:",recid)))
+  print(paste(c("getting dataset:",recid)))
   writeBin(as.vector(
               postForm(
                 uri=NMADBURL,
