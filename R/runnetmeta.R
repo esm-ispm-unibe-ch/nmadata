@@ -12,7 +12,7 @@ runnetmeta = function(recid,model="random"){
   }
   sm = switch( type
              , binary={"OR"}
-             , continuous={"SMD"}
+             , continuous={"MD"}
              , rate={"OR"}
              , survival={"HR"}
        )
@@ -48,7 +48,7 @@ getmetaNetw = function(indata,type,model="fixed",tau=NA, sm){
   } 
   
   if (type=="long_continuous"){
-    Dpairs=pairwise(treat=t,mean=y,sd=sd,n=n,data=D, studlab =id, sm=sm)
+    Dpairs=pairwise(treat=t,mean=y,sd=sd,n=n,data=D, studlab =id, sm=sm, allstudies = TRUE)
     metaNetw<-netmeta(TE,seTE,treat1,treat2,studlab,data=Dpairs,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE, tol.multiarm=0.05)
   }
   

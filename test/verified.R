@@ -1,6 +1,7 @@
 
 library(devtools)
-install_github("esm-ispm-unibe-ch/nmadata",ref="redcap")
+#install_github("esm-ispm-unibe-ch/nmadata")
+source("R/runnetmeta.R")
 library(nmadata)
 
 verifyVerified = function () {
@@ -17,4 +18,9 @@ verifyVerified = function () {
     }
   )
   print(res)
+}
+
+updateVerified = function () {
+  nmadb=getNMADB()
+  checkRecords(nmadb[nmadb$Data.available=="True",],T)
 }

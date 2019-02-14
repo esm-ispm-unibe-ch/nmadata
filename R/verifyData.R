@@ -52,10 +52,14 @@ updateVerifiedStatus = function (recid, isVerified=0, err='') {
 checkRecords = function (records, updateDB=F) {
   rcs = as.vector(records$"Record.ID")
   res = Map(function(v) {
+          out = list(rec=v,verified=F)
           tryCatch({
             verifyData(v, updateDB)
+            out = list(rec=v,verified=T)
           },error = function (e){
             print(e$message)
+            out = list(rec=v,verified=F)
           })
+         return(out)
         },rcs)
 }
