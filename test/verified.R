@@ -1,7 +1,7 @@
 
 library(devtools)
-#install_github("esm-ispm-unibe-ch/nmadata")
-source("R/runnetmeta.R")
+install_github("esm-ispm-unibe-ch/nmadata")
+#source("R/runnetmeta.R")
 library(nmadata)
 
 verifyVerified = function () {
