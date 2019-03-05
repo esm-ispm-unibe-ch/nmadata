@@ -12,7 +12,7 @@ runnetmeta = function(recid,model="random"){
   }
   sm = switch( type
              , binary={"OR"}
-             , continuous={"SMD"}
+             , continuous={"MD"}
              , rate={"OR"}
              , survival={"HR"}
        )
