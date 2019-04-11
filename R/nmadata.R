@@ -1,4 +1,3 @@
-
 getNMADB = function () {
   library(RCurl)
   response <- postForm(
