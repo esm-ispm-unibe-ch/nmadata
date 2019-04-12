@@ -1,5 +1,21 @@
+isOutcomeCompatibleWithMeasure = function(outcome, measure){
+ binaries = c("OR","RR","RD") 
+ continuouses = c("MD","SMD")
+ rates = c("IRR")
+ survivals = c("HR")
+ iscomp = function(compatibles, sm) {
+   return (sm %in% compatibles)
+ }
+ res = switch ( outcome
+              , binary = {iscomp(binaries, measure)}
+              , continuous = {iscomp(continuouses, measure)}
+              , survival = {iscomp(survivals, measure)}
+              , rate = {iscomp(rates, measure)}
+              )
+ return (res)
+}
 
-runnetmeta = function(recid,model="random"){
+runnetmeta = function(recid,model="random", measure="notset"){
   indata = readByID(recid)
   type = indata$type
   format = as.character(indata$format)
@@ -10,12 +26,24 @@ runnetmeta = function(recid,model="random"){
       "iv"
     }
   }
-  sm = switch( type
-             , binary={"OR"}
-             , continuous={"MD"}
-             , rate={"OR"}
-             , survival={"HR"}
-       )
+  dataeffect = indata$effect
+  if(measure != "notset"){
+  if (indata$format == "iv"){
+    if (indata$effect == measure){
+      sm = measure
+    }else{
+      stop("cannot change effect measure type in inverse variance dataset")
+    }
+  }else{
+    if(isOutcomeCompatibleWithMeasure(type,measure)){
+      sm = measure
+    }else{
+      stop(paste(type, " not compatible with ",measure))
+    }
+  }
+  }else{
+    sm = indata$effect
+  }
   makelong = function () {
                   library(devtools)
                   install_github("esm-ispm-unibe-ch/dataformatter")
@@ -53,7 +81,7 @@ getmetaNetw = function(indata,type,model="fixed",tau=NA, sm){
   }
   
   if (type=="iv"){
-    metaNetw=netmeta(TE=effect,seTE=se,treat1=t1,treat2=t2,studlab=id,data=D,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE, tol.multiarm=0.2)
+    metaNetw=netmeta(TE=effect,seTE=se,treat1=t1,treat2=t2,studlab=id,data=D,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE, tol.multiarm=0.5)
   }
 
   return(metaNetw)

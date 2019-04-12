@@ -67,9 +67,20 @@ readByID = function(recid) {
   dts = as.data.frame(read_xlsx(fl))
   dtsformat = catalog[catalog$Record.ID %in% recid,]$Format 
   dtstype = catalog[catalog$Record.ID %in% recid,]$Type.of.Outcome
+  effecttype = as.character(catalog[catalog$Record.ID %in% recid,]$Effect.Measure)
+  dtseffect = switch( effecttype
+                    , "odds ratio"={"OR"}
+                    , "risk ratio"={"RR"}
+                    , "hazard ratio"={"HR"}
+                    , "rate ratio"={"IRR"}
+                    , "risk difference"={"RD"}
+                    , "mean difference"={"MD"}
+                    , "standardized mean difference"={"SMD"}
+                    )
   out = dts
   return (list( name   = recid
               , data   = out
               , type   = tolower(dtstype)
+              , effect = dtseffect
               , format = dtsformat))
 }
