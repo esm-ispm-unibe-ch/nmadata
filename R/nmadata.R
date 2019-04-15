@@ -76,6 +76,7 @@ readByID = function(recid) {
                     , "risk difference"={"RD"}
                     , "mean difference"={"MD"}
                     , "standardized mean difference"={"SMD"}
+                    , "other"={"other"}
                     )
   out = dts
   return (list( name   = recid

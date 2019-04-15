@@ -4,7 +4,13 @@ isOutcomeCompatibleWithMeasure = function(outcome, measure){
  rates = c("IRR")
  survivals = c("HR")
  iscomp = function(compatibles, sm) {
-   return (sm %in% compatibles)
+    out = F
+    if (sm == "other"){
+      out = F
+    }else{
+      out = sm %in% compatibles
+    }
+   return (out)
  }
  res = switch ( outcome
               , binary = {iscomp(binaries, measure)}
@@ -27,22 +33,26 @@ runnetmeta = function(recid,model="random", measure="notset"){
     }
   }
   dataeffect = indata$effect
-  if(measure != "notset"){
-  if (indata$format == "iv"){
-    if (indata$effect == measure){
-      sm = measure
-    }else{
-      stop("cannot change effect measure type in inverse variance dataset")
-    }
+  if(indata$effect == "other"){
+      stop("don't know how to analyze atypical effect measure")
   }else{
-    if(isOutcomeCompatibleWithMeasure(type,measure)){
-      sm = measure
+    if(measure != "notset"){
+    if (indata$format == "iv"){
+      if (indata$effect == measure){
+        sm = measure
+      }else{
+        stop("cannot change effect measure type in inverse variance dataset")
+      }
     }else{
-      stop(paste(type, " not compatible with ",measure))
+      if(isOutcomeCompatibleWithMeasure(type,measure)){
+        sm = measure
+      }else{
+        stop(paste(type, " not compatible with ",measure))
+      }
     }
-  }
-  }else{
-    sm = indata$effect
+    }else{
+      sm = indata$effect
+    }
   }
   makelong = function () {
                   library(devtools)
