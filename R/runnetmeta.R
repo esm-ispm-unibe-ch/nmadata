@@ -79,6 +79,11 @@ getmetaNetw = function(indata,type,model="fixed",tau=NA, sm){
     Dpairs=pairwise(treat=t,mean=y,sd=sd,n=n,data=D, studlab =id, sm=sm, allstudies = TRUE)
     metaNetw<-netmeta(TE,seTE,treat1,treat2,studlab,data=Dpairs,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE, tol.multiarm=0.2)
   }
+
+  if (type=="long_rate"){
+    Dpairs=pairwise(treat=t,event=r,n=n,time=time, data=D, studlab =id, sm=sm, allstudies = TRUE)
+    metaNetw<-netmeta(TE,seTE,treat1,treat2,studlab,data=Dpairs,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE)
+  }
   
   if (type=="iv"){
     metaNetw=netmeta(TE=effect,seTE=se,treat1=t1,treat2=t2,studlab=id,data=D,sm=sm,comb.fixed =F,comb.random = T, details.chkmultiarm=TRUE, tol.multiarm=0.5)
