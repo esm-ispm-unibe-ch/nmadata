@@ -1,7 +1,17 @@
-
+#' Get the catalog of network meta-analysis
+#'
+#' This function downloads the catalog of networks from ISPM UniBe
+#' REDCap database
+#' 
+#' 
+#' 
+#' 
+#' 
+#' @param 
+#' @return data.frame with nmas
+#' @export
 getNMADB = function () {
-  library(RCurl)
-  response <- postForm(
+  response <- RCurl::postForm(
       uri=NMADBURL,
       token=PUBLICTOKEN,
       content='record',
@@ -45,7 +55,7 @@ unverifiedStudies = function (){
 exportData = function (recid, filename) {
   print(paste(c("getting dataset:",recid)))
   writeBin(as.vector(
-              postForm(
+              RCurl::postForm(
                 uri=NMADBURL,
                 token=PUBLICTOKEN,
                 content='file',
@@ -59,15 +69,27 @@ exportData = function (recid, filename) {
           ), filename) 
 }
 
+#' Download dataset of nma from REDCap
+#'
+#' ReadByID downloads the dataset and main characteristics of network.
+#' You can list all ids from the catalog by calling \code{getNMADB}
+#' 
+#' @param recid Record id of network
+#' @return list with the name (id), data (dataset), type (continuous, binary,
+#' rate, survival), effect (type of measure: RR OR RR RD ...), format (long,
+#' wide, iv)
+#' @export
 readByID = function(recid) {
   catalog = getNMADB()
-  library(readxl)
   fl = tempfile(fileext=".xlsx")
   exportData(recid,fl)
   dts = as.data.frame(read_xlsx(fl))
-  dtsformat = catalog[catalog$Record.ID %in% recid,]$Format 
-  dtstype = catalog[catalog$Record.ID %in% recid,]$Type.of.Outcome
-  effecttype = as.character(catalog[catalog$Record.ID %in% recid,]$Effect.Measure)
+  dtsformat = 
+    catalog[catalog$Record.ID %in% recid,]$Format 
+  dtstype = 
+    catalog[catalog$Record.ID %in% recid,]$Type.of.Outcome
+  effecttype = 
+    as.character(catalog[catalog$Record.ID %in% recid,]$Effect.Measure)
   dtseffect = switch( effecttype
                     , "odds ratio"={"OR"}
                     , "risk ratio"={"RR"}

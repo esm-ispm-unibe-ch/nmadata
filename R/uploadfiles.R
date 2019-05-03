@@ -1,7 +1,5 @@
-library(RCurl)
-
 response = function () {
-  postForm(
+  RCurl::postForm(
     uri=NMADBURL,
     token=PUBLICTOKEN,
     format='csv',
@@ -25,7 +23,7 @@ filename = function (recid) {
 importreq = function (recid) {
   if(file.exists(filename(recid))){
     print(recid)
-    postForm(
+    RCurl::postForm(
       uri=NMADBURL,
       token=ADMINTOKEN,
       content='file',
