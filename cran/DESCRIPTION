@@ -1,6 +1,6 @@
 Package: nmadb
 Type: Package
-Title: Network meta-analyses database API
+Title: Network Meta-Analysis Database API
 Version: 1.0.0
 Date: 2019-05-02
 Authors@R: person("Theodoros", "Papakonstantinou",
