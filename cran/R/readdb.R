@@ -1,16 +1,16 @@
 #' NMA catalog
 #'
 #' Petropoulou et al. compiled a database of network meta-analyses to 
-#' serve as a source for empirical studies [1].
+#' serve as a source for empirical studies Petropoulou (2016).
 #' The database is hosted in a REDcap database at the 
 #' Institute of Social and Preventive Medicine (ISPM) in the University of Bern.
-#' Function getNMADB downloads the list of networks included in [1].
+#' Function getNMADB downloads the list of networks included in Petropoulou
+#' (2016).
 #'
 #' @references  
-#' [1] Petropoulou M. et al. 2016 Bibliographic study showed improving statistical methodology 
-#' of network meta-analyses published between 1999 and 2015,
-#' \emph{Journal of Clinical Epidemiology}, 20--28 
-#' \cite{DOI:10.1016/j.jclinepi.2016.11.002}
+#' Petropoulou M, Nikolakopoulou A A, Veroniki A, Rios P, Vafaei A,
+#' Zarin W, Giannatsi M, Sullivan S, Tricco A C, Chaimani A, Egger M, Salanti G
+#' (2016) <doi:10.1016/j.jclinepi.2016.11.002>.
 #' 
 #' @examples
 #' catalog = getNMADB()
@@ -51,14 +51,21 @@ getNMADB = function () {
 #' of the specified network meta-analysis.
 #' You can list all ids from the catalog by calling \code{getNMADB}.
 #' 
+#' @examples
+#' #Download network with id 479999
+#' net = readByID(47999)
+#' #View data
+#' net$data
 #' @param recid Record id of network
 #' @return A list with the name (id), data (dataset), type (continuous, binary,
 #' rate, survival), effect (type of measure: RR OR RR RD ...), 
 #' format (long, wide, iv). 
-#' -'long' refers to data where each row represents a study treatment arm, 
-#' -'wide' refers to data where each row represents a study treatment comparison
-#' -'iv' refers to an 'inverse variance' format, where a comparison specific 
-#'   estimate of the treatemtn effect and its standard error are reported.  
+#' \itemize{
+#' \item 'long' refers to data where each row represents a study treatment arm
+#' \item 'wide' refers to data where each row represents a study treatment comparison
+#' \item 'iv' refers to an 'inverse variance' format, where a comparison specific 
+#'   estimate of the treatment effect and its standard error are reported.  
+#' }
 #' @export readByID
 readByID = function(recid) {
   exportData = function (recid, filename) {

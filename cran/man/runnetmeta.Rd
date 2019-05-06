@@ -31,8 +31,8 @@ An object of class netmeta; for the descirption
   \code{\link[netmeta]{netmeta}}.
 }
 \description{
-R package \code{\link[netmeta]{netmeta}}[1] provides frequenstist methods 
-for network meta-analysis based on [2,3]. 
+R package \code{\link[netmeta]{netmeta}} provides frequenstist methods 
+for network meta-analysis based on Rücker (2012) and Rücker (2014). 
 This function is used to run netmeta on a specified network 
 included in the database of network meta-analyses,
 which can be downloaded using function \code{\link{getNMADB}}.
@@ -40,7 +40,7 @@ which can be downloaded using function \code{\link{getNMADB}}.
 \examples{
 #Conduct random effects network meta-analysis 
 # in a random network with continuous outcome
-cid <- 501321
+cid <- 501427
 netc <- readByID(cid)
 #get type and effect
 netc$type
@@ -48,10 +48,10 @@ netc$effect
 #In order to run netmeta but get "SMD" summary effects instead
 runnetmeta(recid=cid, measure="SMD")
 
-\dontrun{
-#If we try OR we get an error
-runnetmeta(recid=cid, measure="OR")
+#If we the following example choosing OR we get an error
+#runnetmeta(recid=cid, measure="OR")
 
+\donttest{
 #As before for a network with binary outcome 
 bid <- 481216
 netb <- readByID(bid)
@@ -79,18 +79,9 @@ runnetmeta(recid=rid)
  
 }
 \references{
-[1] Rücker G, Schwarzer G, Krahn U, König J. 2016 netmeta: 
-     Network Meta-Analysis using Frequentist Methods [Internet]. 
-     Available from:
-     \url{https://CRAN.R-project.org/package=netmeta}
+Rücker G (2012) <doi:10.1002/jrsm.1058>.
 
-  [2] Rücker G 2012: Network meta-analysis, 
-     electrical networks and graph theory. 
-     \emph{Research Synthesis Methods}, \bold{3}, 312--24
-
-  [3] Rücker G, Schwarzer G 2014 Reduce dimension or reduce weights?
-     Comparing two approaches to multi-arm studies in network meta-analysis.
-     \emph{Statistics in Medicine}, \bold{33}, 4353--69
+  Rücker G, Schwarzer G (2014) <doi:10.1002/sim.6236>.
 }
 \seealso{
 \code{\link[netmeta]{netmeta}}

@@ -13,13 +13,21 @@ readByID(recid)
 A list with the name (id), data (dataset), type (continuous, binary,
 rate, survival), effect (type of measure: RR OR RR RD ...), 
 format (long, wide, iv). 
--'long' refers to data where each row represents a study treatment arm, 
--'wide' refers to data where each row represents a study treatment comparison
--'iv' refers to an 'inverse variance' format, where a comparison specific 
-  estimate of the treatemtn effect and its standard error are reported.
+\itemize{
+\item 'long' refers to data where each row represents a study treatment arm
+\item 'wide' refers to data where each row represents a study treatment comparison
+\item 'iv' refers to an 'inverse variance' format, where a comparison specific 
+  estimate of the treatment effect and its standard error are reported.  
+}
 }
 \description{
 ReadByID downloads the dataset and main characteristics 
 of the specified network meta-analysis.
 You can list all ids from the catalog by calling \code{getNMADB}.
+}
+\examples{
+#Download network with id 479999
+net = readByID(47999)
+#View data
+net$data
 }

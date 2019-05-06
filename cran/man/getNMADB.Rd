@@ -13,10 +13,11 @@ Several characterstics related to the publications
 }
 \description{
 Petropoulou et al. compiled a database of network meta-analyses to 
-serve as a source for empirical studies [1].
+serve as a source for empirical studies Petropoulou (2016).
 The database is hosted in a REDcap database at the 
 Institute of Social and Preventive Medicine (ISPM) in the University of Bern.
-Function getNMADB downloads the list of networks included in [1].
+Function getNMADB downloads the list of networks included in Petropoulou
+(2016).
 }
 \examples{
 catalog = getNMADB()
@@ -26,8 +27,7 @@ nmalist = catalog[catalog$Verified=="True",]
 nmalist
 }
 \references{
-[1] Petropoulou M. et al. 2016 Bibliographic study showed improving statistical methodology 
-of network meta-analyses published between 1999 and 2015,
-\emph{Journal of Clinical Epidemiology}, 20--28 
-\cite{DOI:10.1016/j.jclinepi.2016.11.002}
+Petropoulou M, Nikolakopoulou A A, Veroniki A, Rios P, Vafaei A,
+Zarin W, Giannatsi M, Sullivan S, Tricco A C, Chaimani A, Egger M, Salanti G
+(2016) <doi:10.1016/j.jclinepi.2016.11.002>.
 }
