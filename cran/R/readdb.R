@@ -14,8 +14,10 @@
 #' 
 #' @examples
 #' catalog = getNMADB()
-#' #Networks that labeled Verified have outcome data 
-#' #that allow the analysis to be repeated.
+#' \dontrun{
+#'   Networks that labeled Verified have outcome data 
+#'   that allow the analysis to be repeated.
+#' }
 #' nmalist = catalog[catalog$Verified=="True",]
 #' nmalist
 #' @return A data.frame with the network meta-analyses included in [1]. 
@@ -25,17 +27,17 @@
 getNMADB = function () {
   tryCatch({
   response <- RCurl::postForm(
-      uri=NMADBURL,
-      token=PUBLICTOKEN,
-      content='record',
-      format='csv',
-      type='flat',
-      rawOrLabel='label',
-      rawOrLabelHeaders='label',
-      exportSurveyFields='true',
-      exportCheckboxLabel='false',
-      exportDataAccessGroups='false',
-      returnFormat='json'
+  uri=NMADBURL,
+  token=PUBLICTOKEN,
+  content='record',
+  format='csv',
+  type='flat',
+  rawOrLabel='label',
+  rawOrLabelHeaders='label',
+  exportSurveyFields='true',
+  exportCheckboxLabel='false',
+  exportDataAccessGroups='false',
+  returnFormat='json'
   )
   catalog = utils::read.csv(text = response)
   return (catalog)
@@ -52,9 +54,10 @@ getNMADB = function () {
 #' You can list all ids from the catalog by calling \code{getNMADB}.
 #' 
 #' @examples
-#' #Download network with id 479999
-#' net = readByID(47999)
-#' #View data
+#' \dontrun{
+#'   Download network with id 479999
+#" }
+#' net = readByID(479999)
 #' net$data
 #' @param recid Record id of network
 #' @return A list with the name (id), data (dataset), type (continuous, binary,
@@ -87,7 +90,7 @@ readByID = function(recid) {
   catalog = getNMADB()
   fl = tempfile(fileext=".xlsx")
   tryCatch({
-    exportData(recid,fl)
+  exportData(recid,fl)
   dts = as.data.frame(readxl::read_xlsx(fl))
   dtsformat = catalog[catalog$Record.ID %in% recid,]$Format 
   dtstype = catalog[catalog$Record.ID %in% recid,]$Type.of.Outcome
@@ -102,12 +105,12 @@ readByID = function(recid) {
                     , "standardized mean difference"={"SMD"}
                     , "other"={"other"}
                     )
-  out = dts
-  return (list( name   = recid
-              , data   = out
-              , type   = tolower(dtstype)
-              , effect = dtseffect
-              , format = dtsformat))
+    out = dts
+    return (list( name   = recid
+                , data   = out
+                , type   = tolower(dtstype)
+                , effect = dtseffect
+                , format = dtsformat))
   },error=function(cond){
     message(paste("Could not download dataset ",cond))
     return(NULL)

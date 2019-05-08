@@ -21,8 +21,10 @@ Function getNMADB downloads the list of networks included in Petropoulou
 }
 \examples{
 catalog = getNMADB()
-#Networks that labeled Verified have outcome data 
-#that allow the analysis to be repeated.
+\dontrun{
+  Networks that labeled Verified have outcome data 
+  that allow the analysis to be repeated.
+}
 nmalist = catalog[catalog$Verified=="True",]
 nmalist
 }

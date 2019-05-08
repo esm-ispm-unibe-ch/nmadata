@@ -27,40 +27,42 @@
 #' }
 #' If the measure entered is not compatible with network's type you get an error
 #' @examples
-#' #Conduct random effects network meta-analysis 
-#' # in a random network with continuous outcome
+#' \dontrun{
+#'   Conduct random effects network meta-analysis 
+#'   in a random network with continuous outcome
+#' }
 #' cid <- 501427
 #' netc <- readByID(cid)
-#' #get type and effect
+#' \dontrun{get type and effect}
 #' netc$type
 #' netc$effect
-#' #In order to run netmeta but get "SMD" summary effects instead
+#' \dontrun{In order to run netmeta but get "SMD" summary effects instead}
 #' runnetmeta(recid=cid, measure="SMD")
 #'
-#' #If we the following example choosing OR we get an error
-#' #runnetmeta(recid=cid, measure="OR")
+#' \dontrun{If we the following example choosing OR we get an error
+#' runnetmeta(recid=cid, measure="OR")}
 #' 
 #' \donttest{
-#' #As before for a network with binary outcome 
+#' \dontrun{As before for a network with binary outcome}
 #' bid <- 481216
 #' netb <- readByID(bid)
-#' #get type and effect
+#' \dontrun{get type and effect}
 #' netb$type
 #' netb$effect
 #' runnetmeta(recid=bid, measure="OR")
 #'  
-#' #Survival outcome 
+#' \dontrun{Survival outcome}
 #' sid <- 479888
 #' nets <- readByID(sid)
-#' #get type and effect
+#' \dontrun{get type and effect}
 #' nets$type
 #' nets$effect
 #' runnetmeta(recid=sid)
 #'  
-#' #Rate outcome 
+#' \dontrun{Rate outcome}
 #' rid <- 479999
 #' netr <- readByID(rid)
-#' #get type and effect
+#' \dontrun{get type and effect}
 #' netr$type
 #' netr$effect
 #' runnetmeta(recid=rid)
@@ -90,25 +92,25 @@ runnetmeta <- function(recid,model="random", measure="notset"){
         stop("don't know how to analyze atypical effect measure")
     }else{
       if(measure != "notset"){
-      if (indata$format == "iv"){
-        if (indata$effect == measure){
-          sm = measure
+        if (indata$format == "iv"){
+          if (indata$effect == measure){
+            sm = measure
+          }else{
+            stop("cannot change effect measure type in inverse variance dataset")
+          }
         }else{
-          stop("cannot change effect measure type in inverse variance dataset")
+          if(isOutcomeCompatibleWithMeasure(type,measure)){
+            sm = measure
+          }else{
+            stop(paste(type, " not compatible with ",measure))
+          }
         }
-      }else{
-        if(isOutcomeCompatibleWithMeasure(type,measure)){
-          sm = measure
-        }else{
-          stop(paste(type, " not compatible with ",measure))
-        }
-      }
       }else{
         sm = indata$effect
       }
     }
     makelong = function () {
-                    return(wide2long(indata$data,indata$type))
+                   return(wide2long(indata$data,indata$type))
                }
     data = switch (format
                   , long = {indata$data}
@@ -220,7 +222,7 @@ isOutcomeCompatibleWithMeasure = function(outcome, measure){
     }
    return (out)
  }
- res = switch ( outcome
+ res = switch (outcome
               , binary = {iscomp(binaries, measure)}
               , continuous = {iscomp(continuouses, measure)}
               , survival = {iscomp(survivals, measure)}

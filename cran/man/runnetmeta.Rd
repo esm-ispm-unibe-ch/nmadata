@@ -38,40 +38,42 @@ included in the database of network meta-analyses,
 which can be downloaded using function \code{\link{getNMADB}}.
 }
 \examples{
-#Conduct random effects network meta-analysis 
-# in a random network with continuous outcome
+\dontrun{
+  Conduct random effects network meta-analysis 
+  in a random network with continuous outcome
+}
 cid <- 501427
 netc <- readByID(cid)
-#get type and effect
+\dontrun{get type and effect}
 netc$type
 netc$effect
-#In order to run netmeta but get "SMD" summary effects instead
+\dontrun{In order to run netmeta but get "SMD" summary effects instead}
 runnetmeta(recid=cid, measure="SMD")
 
-#If we the following example choosing OR we get an error
-#runnetmeta(recid=cid, measure="OR")
+\dontrun{If we the following example choosing OR we get an error
+runnetmeta(recid=cid, measure="OR")}
 
 \donttest{
-#As before for a network with binary outcome 
+\dontrun{As before for a network with binary outcome}
 bid <- 481216
 netb <- readByID(bid)
-#get type and effect
+\dontrun{get type and effect}
 netb$type
 netb$effect
 runnetmeta(recid=bid, measure="OR")
  
-#Survival outcome 
+\dontrun{Survival outcome}
 sid <- 479888
 nets <- readByID(sid)
-#get type and effect
+\dontrun{get type and effect}
 nets$type
 nets$effect
 runnetmeta(recid=sid)
  
-#Rate outcome 
+\dontrun{Rate outcome}
 rid <- 479999
 netr <- readByID(rid)
-#get type and effect
+\dontrun{get type and effect}
 netr$type
 netr$effect
 runnetmeta(recid=rid)
