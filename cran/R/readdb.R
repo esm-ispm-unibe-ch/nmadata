@@ -26,21 +26,25 @@
 #' @export getNMADB
 getNMADB = function () {
   tryCatch({
-  response <- RCurl::postForm(
-  uri=NMADBURL,
-  token=PUBLICTOKEN,
-  content='record',
-  format='csv',
-  type='flat',
-  rawOrLabel='label',
-  rawOrLabelHeaders='label',
-  exportSurveyFields='true',
-  exportCheckboxLabel='false',
-  exportDataAccessGroups='false',
-  returnFormat='json'
-  )
-  catalog = utils::read.csv(text = response)
-  return (catalog)
+    response <- RCurl::postForm(
+      uri=NMADBURL,
+      token=PUBLICTOKEN,
+      content='record',
+      format='csv',
+      type='flat',
+      rawOrLabel='label',
+      csvDelimiter=';',
+      rawOrLabelHeaders='label'
+    )
+    rfn = tempfile()
+    write(file=rfn, response)
+    if (file.exists(rfn)){
+      catalog = utils::read.csv2(file=file(rfn,encoding="WINDOWS-1252"), header = T, sep=";")
+      file.remove(rfn)
+    }else{
+      stop("could not create tmp db file")
+    }
+    return (catalog)
   },error=function(cond){
     message(paste("could not open database connection",cond))
     return(NULL)

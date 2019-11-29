@@ -1,4 +1,4 @@
-## nmadata - network meta-analysis database
+## nmadb - network meta-analysis database
 R package for accessing ISPM's database of Network meta-analyses.
 Provides the database table for quering and access to individual network data.
 
@@ -16,7 +16,10 @@ library(devtools)
 install_github("esm-ispm-unibe-ch/dataformatter")
 install_github("esm-ispm-unibe-ch/nmadata")
 ```
-
+Load nmadb
+```
+library(nmadb)
+```
 ## Listing networks
 - The database is exported as a data.frame by the ```getNMADB()``` function. so one could do ```catalog = getNMADB()```
 - ```nmadatanames(catalog)``` gives refid_autor's name_year of networks in catalog
