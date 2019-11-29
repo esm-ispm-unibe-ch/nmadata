@@ -2,3 +2,6 @@ nmadb/.catalog
 notes/
 admin.token
 *.csv
+backup/
+cran/
+nmadb_*.tar.gz

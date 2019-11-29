@@ -1,8 +1,8 @@
 Package: nmadb
 Type: Package
-Title: Network Meta-Analyses Database API
-Version: 1.0.0
-Date: 2019-05-02
+Title: Network Meta-Analysis Database API
+Version: 1.1.0
+Date: 2019-11-29
 Authors@R: person("Theodoros", "Papakonstantinou",
                     role = c("aut", "cre"),
                     email = "theodoros.papakonstantinou@ispm.unibe.ch",
@@ -10,7 +10,7 @@ Authors@R: person("Theodoros", "Papakonstantinou",
 Description: Set of functions for accessing database of network meta-analyses described in 
   Petropoulou M, et al. Bibliographic study showed improving statistical methodology of network
   meta-analyses published between 1999 and 2015
-  <DOI:10.1016/j.jclinepi.2016.11.002>. The database is hosted in a REDcap database at the 
+  <doi:10.1016/j.jclinepi.2016.11.002>. The database is hosted in a REDcap database at the 
   Institute of Social and Preventive Medicine (ISPM) in the University of Bern.
 License: GPL-3
 LazyLoad: Yes

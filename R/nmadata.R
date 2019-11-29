@@ -18,13 +18,17 @@ getNMADB = function () {
       format='csv',
       type='flat',
       rawOrLabel='label',
-      rawOrLabelHeaders='label',
-      exportSurveyFields='true',
-      exportCheckboxLabel='false',
-      exportDataAccessGroups='false',
-      returnFormat='json'
+      csvDelimiter=';',
+      rawOrLabelHeaders='label'
   )
-  catalog = read.csv(text = response)
+  rfn = tempfile()
+  write(file=rfn, response)
+  if (file.exists(rfn)){
+    catalog = read.csv2(file=file(rfn,encoding="WINDOWS-1252"), header = T, sep=";")
+    file.remove(rfn)
+  }else{
+    stop("could not create tmp db file")
+  }
   return (catalog)
 }
 
@@ -84,6 +88,7 @@ readByID = function(recid) {
   fl = tempfile(fileext=".xlsx")
   exportData(recid,fl)
   dts = as.data.frame(read_xlsx(fl))
+  file.remove(fl)
   dtsformat = 
     catalog[catalog$Record.ID %in% recid,]$Format 
   dtstype = 

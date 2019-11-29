@@ -1,8 +1,8 @@
 Package: nmadb
 Type: Package
 Title: Network Meta-Analysis Database API
-Version: 1.0.0
-Date: 2019-05-02
+Version: 1.1.0
+Date: 2019-11-29
 Authors@R: person("Theodoros", "Papakonstantinou",
                     role = c("aut", "cre"),
                     email = "theodoros.papakonstantinou@ispm.unibe.ch",
