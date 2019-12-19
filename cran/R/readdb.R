@@ -39,7 +39,7 @@ getNMADB = function () {
     rfn = tempfile()
     write(file=rfn, response)
     if (file.exists(rfn)){
-      catalog = utils::read.csv2(file=file(rfn,encoding="WINDOWS-1252"), header = T, sep=";")
+      catalog = utils::read.csv2(file=file(rfn), header = T, sep=";")
       file.remove(rfn)
     }else{
       stop("could not create tmp db file")
