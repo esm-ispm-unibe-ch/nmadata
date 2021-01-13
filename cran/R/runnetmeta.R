@@ -39,10 +39,11 @@
 #' \dontrun{In order to run netmeta but get "SMD" summary effects instead}
 #' runnetmeta(recid=cid, measure="SMD")
 #'
+#' \donttest{
+#' 
 #' \dontrun{If we the following example choosing OR we get an error
 #' runnetmeta(recid=cid, measure="OR")}
 #' 
-#' \donttest{
 #' \dontrun{As before for a network with binary outcome}
 #' bid <- 481216
 #' netb <- readByID(bid)
