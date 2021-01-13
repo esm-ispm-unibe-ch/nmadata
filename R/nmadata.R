@@ -87,7 +87,7 @@ readByID = function(recid) {
   catalog = getNMADB()
   fl = tempfile(fileext=".xlsx")
   exportData(recid,fl)
-  dts = as.data.frame(read_xlsx(fl))
+  dts = as.data.frame(readxl::read_xlsx(fl))
   file.remove(fl)
   dtsformat = 
     catalog[catalog$Record.ID %in% recid,]$Format 
